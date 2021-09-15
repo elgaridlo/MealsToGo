@@ -1,66 +1,83 @@
-import React, { useEffect } from 'react'
-import { StatusBar, StyleSheet, Text, View, SafeAreaView, Platform } from 'react-native';
-import { Searchbar } from 'react-native-paper'
-import styled from 'styled-components';
-import { RestaurantInfoCard } from '../components/restaurantInfoCard';
+import React, { useEffect, useContext} from 'react'
+import {
+  StyleSheet,
+  FlatList,
+  View,
+} from 'react-native'
+import { ActivityIndicator, Searchbar, Colors } from 'react-native-paper'
+import styled from 'styled-components'
+import { SpacerComponent } from '../../../components/spacer/SpacerComponent'
+import { RestaurantInfoCard } from '../components/restaurantInfoCard'
+import { SafeArea } from '../../../components/utility/SafeAreaComponent'
 
-const SafeArea = styled(SafeAreaView)`
-    flex: 1;
-    ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
-`;
+import { SearchComponent } from '../components/SearchComponent'
+import { RestaurantsContext } from '../../../services/restaurants/RestaurantContext'
 
-const SearchContainer = styled(View)`
-    padding: ${(props) => props.theme.space[3]};    
-`;
+const RestaurantList = styled(FlatList).attrs({
+    contentContainerStyle: {
+        padding: 16
+    }
+})``;
 
-const RestaurantListContainer = styled(View)`
-    flex:1;
-    padding: ${(props) => props.theme.space[3]};
-    background-color: white;
-`;
+const Loading = styled(ActivityIndicator)`
+  margin-left: -25px;
+`
+
+const LoadingContainer = styled.View`
+position: absolute; top: 50%; left: 50%;
+`
 
 const RestaurantScreen = () => {
-
-    const [searchQuery, setSearchQuery] = React.useState('');
-
-    const onChangeSearch = query => setSearchQuery(query);
-
-    // const onClickSearch = query => setSearchQuery(query);
-    useEffect(() => {
-    }, [searchQuery])
-    return (
-        <>
-            {/* StatusBar react native digunakan untuk android untuk memberi space ke template
+  const {restaurants, isLoading, error} = useContext(RestaurantsContext)
+  
+  return (
+    <>
+      {/* StatusBar react native digunakan untuk android untuk memberi space ke template
       SafeAreaView digunakan untuk memberikan spasi di ios seperti iphone berponi
     */}
-            <SafeArea>
-                <SearchContainer>
-                    <Searchbar
-                        placeholder="Search"
-                        onChangeText={onChangeSearch}
-                        value={searchQuery}
-                    />
-                </SearchContainer>
-                <RestaurantListContainer>
-                    <RestaurantInfoCard />
-                </RestaurantListContainer>
-            </SafeArea>
-        </>
-    )
+      <SafeArea>
+        {isLoading && (
+          <LoadingContainer>
+            <Loading 
+              size={50}
+              style={{marginLeft: -25}}
+              animating={true}
+              color={Colors.blue300}
+            />
+          </LoadingContainer>
+        )}
+        <SearchComponent />
+
+        <RestaurantList
+          data={restaurants}
+          renderItem={({item}) => {
+            return(
+            <>
+                <SpacerComponent position="bottom" size="large">
+                    <RestaurantInfoCard restaurant={item} />
+                </SpacerComponent>
+            </>
+            )
+          } 
+          }
+          keyExtractor={(item) => item.name}
+        />
+      </SafeArea>
+    </>
+  )
 }
 
 const styles = StyleSheet.create({
-    // container: {
-    //     flex: 1,
-    //     backgroundColor: 'white',
-    //     // alignItems: 'center',
-    //     // justifyContent: 'center',
-    //     padding: 16,
-    // },
-    // header: {
-    //     padding: 16,
-    // }
-});
-
+  // container: {
+  //     flex: 1,
+  //     backgroundColor: 'white',
+  //     // alignItems: 'center',
+  //     // justifyContent: 'center',
+  //     padding: 16,
+  // },
+  // header: {
+  //     padding: 16,
+  // }
+})
 
 export default RestaurantScreen

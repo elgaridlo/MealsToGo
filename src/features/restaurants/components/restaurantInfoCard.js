@@ -16,7 +16,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
         name = 'Nyokelat Sama Kamu',
         icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
         photos = ['https://photo.kontan.co.id/photo/2021/05/18/1615856826p.jpg'],
-        address = 'Jl. Gemolong Raya No 1 Gemolong',
+        vicinity = 'Jl. Gemolong Raya No 1 Gemolong',
         isOpenNow = true,
         rating = 4,
         isClosedTemporarily = true
@@ -49,7 +49,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
                             </SpacerComponent>
                         </SectionEnd>
                     </Section>
-                    <Address>{address}</Address>
+                    <Address>{vicinity}</Address>
                 </Info>
             </RestaurantCard>
         </>

@@ -10,6 +10,8 @@ export const Icon = styled.Image`
 
 export const RestaurantCard = styled(Card)`
     background-color: ${(props) => props.theme.colors.bg.primary};
+    elevation: 4;
+    
 `;
 // kenapa px? karena px nanti juga diganti ukuran yang sama pas diubah ke reactnative style
 export const RestaurantCardCover = styled(Card.Cover)`
