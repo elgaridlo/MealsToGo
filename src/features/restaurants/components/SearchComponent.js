@@ -15,10 +15,6 @@ export const SearchComponent = () => {
 
     const [searchKeyword, setSearchKeyword] = useState(keyword)
 
-    useEffect(()=> {
-        search(searchKeyword)
-    }, [])
-
     // console.log('search = ', searchKeyword)
     return (
         <SearchContainer>

@@ -16,10 +16,11 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
         name = 'Nyokelat Sama Kamu',
         icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
         photos = ['https://photo.kontan.co.id/photo/2021/05/18/1615856826p.jpg'],
-        vicinity = 'Jl. Gemolong Raya No 1 Gemolong',
+        address = 'Jl. Gemolong Raya No 1 Gemolong',
         isOpenNow = true,
         rating = 4,
-        isClosedTemporarily = true
+        isClosedTemporarily = true,
+        placeId,
     } = restaurant
 
     const ratingArray = Array.from(new Array(Math.floor(rating)))
@@ -34,7 +35,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
                     <Section>
                         <Rating style={{ flexDirection: 'row' }}>
                             {ratingArray.map((item, index) => (
-                                <SvgXml key={index} xml={star} width={20} height={20} />)
+                                <SvgXml key={`star-${placeId}-${index}`} xml={star} width={20} height={20} />)
                             )}
                         </Rating>
                         <SectionEnd>
@@ -49,7 +50,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
                             </SpacerComponent>
                         </SectionEnd>
                     </Section>
-                    <Address>{vicinity}</Address>
+                    <Address>{address}</Address>
                 </Info>
             </RestaurantCard>
         </>
