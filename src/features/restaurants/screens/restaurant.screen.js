@@ -3,6 +3,7 @@ import {
   StyleSheet,
   FlatList,
   View,
+  Pressable,
 } from 'react-native'
 import { ActivityIndicator, Searchbar, Colors } from 'react-native-paper'
 import styled from 'styled-components'
@@ -12,6 +13,7 @@ import { SafeArea } from '../../../components/utility/SafeAreaComponent'
 
 import { SearchComponent } from '../components/SearchComponent'
 import { RestaurantsContext } from '../../../services/restaurants/RestaurantContext'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const RestaurantList = styled(FlatList).attrs({
     contentContainerStyle: {
@@ -27,9 +29,8 @@ const LoadingContainer = styled.View`
 position: absolute; top: 50%; left: 50%;
 `
 
-const RestaurantScreen = () => {
+const RestaurantScreen = ({navigation}) => {
   const {restaurants, isLoading, error} = useContext(RestaurantsContext)
-  
   return (
     <>
       {/* StatusBar react native digunakan untuk android untuk memberi space ke template
@@ -53,9 +54,13 @@ const RestaurantScreen = () => {
           renderItem={({item}) => {
             return(
             <>
+            <TouchableOpacity onPress={() => navigation.navigate("RestaurantDetail", {
+              restaurant: item
+            })}>
                 <SpacerComponent position="bottom" size="large">
                     <RestaurantInfoCard restaurant={item} />
                 </SpacerComponent>
+            </TouchableOpacity>
             </>
             )
           } 
