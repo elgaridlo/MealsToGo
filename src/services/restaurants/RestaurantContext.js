@@ -12,7 +12,6 @@ export const RestaurantsContextProvider = ({children}) => {
 
     const {location} = useContext(LocationContext)
 
-
     const retrieveRestaurants = (loc) => {
         setIsLoading(true)
         setRestaurants([])

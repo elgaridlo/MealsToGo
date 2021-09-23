@@ -11,6 +11,7 @@ import { RestaurantsContextProvider } from './src/services/restaurants/Restauran
 import { LocationContextProvider } from './src/services/location/LocationContext';
 import { AppNavigator } from './src/infrastructures/navigation/AppNavigation';
 import { Navigation } from './src/infrastructures/navigation/index';
+import { FavoritesContextProvider } from './src/services/favorites/FavoriteContext';
 
 
 export default function App() {
@@ -24,11 +25,13 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          <RestaurantsContextProvider>
-            <Navigation/>
-          </RestaurantsContextProvider>
-        </LocationContextProvider>
+        <FavoritesContextProvider>
+          <LocationContextProvider>
+            <RestaurantsContextProvider>
+              <Navigation/>
+            </RestaurantsContextProvider>
+          </LocationContextProvider>
+        </FavoritesContextProvider>
 
         <ExpoStatusBar style='auto' />
       </ThemeProvider>

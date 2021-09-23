@@ -9,6 +9,7 @@ import open from '../../../../assets/open'
 import {
     Icon, RestaurantCard, RestaurantCardCover, Titles, Address, Info, Rating, Section, SectionEnd, Open
 } from './restaurantInfoCard-Style'
+import { FavoriteComponent } from '../../../components/favorites/FavoriteComponent'
 
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
@@ -24,12 +25,13 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     } = restaurant
 
     const ratingArray = Array.from(new Array(Math.floor(rating)))
-    // console.log(ratingArray)
-
     return (
         <>
-            <RestaurantCard>
-                <RestaurantCardCover style={styles.imageStyle} source={{ uri: photos[0] }} />
+            <RestaurantCard elevation={5}>
+                <View>
+                    <FavoriteComponent restaurant={restaurant} />
+                    <RestaurantCardCover style={styles.imageStyle} source={{ uri: photos[0] }} />
+                </View>
                 <Info>
                     <Text variant="label">{name}</Text>
                     <Section>

@@ -14,6 +14,9 @@ import { SafeArea } from '../../../components/utility/SafeAreaComponent'
 import { SearchComponent } from '../components/SearchComponent'
 import { RestaurantsContext } from '../../../services/restaurants/RestaurantContext'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { FavoritesContext } from '../../../services/favorites/FavoriteContext'
+import { useState } from 'react/cjs/react.development'
+import { FavoritesBar } from '../../../components/favorites/FavoritesBarComponent'
 
 const RestaurantList = styled(FlatList).attrs({
     contentContainerStyle: {
@@ -31,6 +34,8 @@ position: absolute; top: 50%; left: 50%;
 
 const RestaurantScreen = ({navigation}) => {
   const {restaurants, isLoading, error} = useContext(RestaurantsContext)
+  const {favorites} = useContext(FavoritesContext)
+  const [isToggled, setIsToggled] = useState(false)
   return (
     <>
       {/* StatusBar react native digunakan untuk android untuk memberi space ke template
@@ -47,7 +52,12 @@ const RestaurantScreen = ({navigation}) => {
             />
           </LoadingContainer>
         )}
-        <SearchComponent />
+        <SearchComponent
+          isFavoritesToggled={isToggled}
+          onFavoritesToggle={() => setIsToggled(!isToggled)}
+        />
+
+          {isToggled && <FavoritesBar favorites={favorites} onNavigate={navigation.navigate} />}
 
         <RestaurantList
           data={restaurants}
