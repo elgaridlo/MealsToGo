@@ -38,7 +38,6 @@ const screenOptions = ({ route }) => {
 
 
 export const AppNavigator = () => (
-  <NavigationContainer>
     <Tab.Navigator
       screenOptions={screenOptions}
     >
@@ -46,5 +45,4 @@ export const AppNavigator = () => (
       <Tab.Screen name="Map" component={MapScreen} options={{headerShown: false}} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
-  </NavigationContainer>
 )

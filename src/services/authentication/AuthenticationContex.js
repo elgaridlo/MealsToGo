@@ -11,22 +11,45 @@ export const AuthenticationContextProvider = ({children}) => {
     const [error, setError] = useState(null)
 
     const onLogin = (email, password) => {
+
         setIsLoading(true)
-        loginRequest(email, password).then((user) => {
-            setUser(user)
-            setIsLoading(false)
-        }).catch((e) => {
-            setIsLoading(false)
-            setError(e)
+        loginRequest(email, password)
+        .then((u) => {
+          setUser(u);
+          setIsLoading(false);
         })
+        .catch((e) => {
+          setIsLoading(false);
+          setError(e.toString());
+        });
     }
+
+    const onRegister = (email, password, repeatedPassword) => {
+        if(password !== repeatedPassword) {
+            setError('Error: Password does not match')
+            return
+        }
+        firebase.default.auth().createUserWithEmailAndPassword(email,password)
+        .then((u) => {
+            setUser(u);
+            setIsLoading(false);
+          })
+          .catch((e) => {
+            setIsLoading(false);
+            console.log('error = ', e.toString())
+            setError(e.toString());
+          });
+    }
+
     return (
         <AuthenticationContext.Provider
             value={{
+                isAuthenticated: !!user,
                 user,
                 isLoading,
                 error,
                 onLogin,
+                onRegister
             }}
         >{children}</AuthenticationContext.Provider>
     )
