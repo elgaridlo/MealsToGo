@@ -7,10 +7,7 @@ import { useFonts as useOswald,Oswald_400Regular } from '@expo-google-fonts/oswa
 import { useFonts as useLato,Lato_400Regular } from '@expo-google-fonts/lato'
 
 import {theme} from './src/infrastructures/theme';
-import { RestaurantsContextProvider } from './src/services/restaurants/RestaurantContext';
-import { LocationContextProvider } from './src/services/location/LocationContext';
 import { Navigation } from './src/infrastructures/navigation/index';
-import { FavoritesContextProvider } from './src/services/favorites/FavoriteContext';
 import { AuthenticationContextProvider } from './src/services/authentication/AuthenticationContex';
 
 const firebaseConfig = {
@@ -41,15 +38,8 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <AuthenticationContextProvider>
-          <FavoritesContextProvider>
-            <LocationContextProvider>
-              <RestaurantsContextProvider>
-                <Navigation/>
-              </RestaurantsContextProvider>
-            </LocationContextProvider>
-          </FavoritesContextProvider>
+          <Navigation/>
         </AuthenticationContextProvider>
-
         <ExpoStatusBar style='auto' />
       </ThemeProvider>
     </>
