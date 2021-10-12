@@ -20,7 +20,6 @@ export const AuthenticationContextProvider = ({children}) => {
     })
 
     const onLogin = (email, password) => {
-
         setIsLoading(true)
         loginRequest(email, password)
         .then((u) => {
@@ -46,7 +45,6 @@ export const AuthenticationContextProvider = ({children}) => {
           })
           .catch((e) => {
             setIsLoading(false);
-            console.log('error = ', e.toString())
             setError(e.toString());
           });
     }
